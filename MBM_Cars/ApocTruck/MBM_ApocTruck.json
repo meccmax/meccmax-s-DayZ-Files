@@ -8,8 +8,8 @@
     "Items": [
         {
             "ClassName": "MBM_Apocalypse_Truck",
-            "MaxPriceThreshold": 15000000,
-            "MinPriceThreshold": 15000000,
+            "MaxPriceThreshold": 1500000,
+            "MinPriceThreshold": 1500000,
             "SellPricePercent": 90,
             "MaxStockThreshold": 1,
             "MinStockThreshold": 1,
