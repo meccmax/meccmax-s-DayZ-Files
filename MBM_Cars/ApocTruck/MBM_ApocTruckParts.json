@@ -1,0 +1,87 @@
+{
+    "m_Version": 12,
+    "DisplayName": "MBM ApocTruck Parts",
+    "Icon": "Wrench",
+    "Color": "FBFCFEFF",
+    "IsExchange": 0,
+    "InitStockPercent": 75.0,
+    "Items": [
+    {
+      "ClassName": "MBM_Apocalypse_Wheel_Rear",
+      "MaxPriceThreshold": 15000,
+      "MinPriceThreshold": 10000,
+      "SellPricePercent": 50,
+      "MaxStockThreshold": 20,
+      "MinStockThreshold": 10,
+      "QuantityPercent": -1,
+      "SpawnAttachments": [],
+      "Variants": []
+    },
+    {
+      "ClassName": "MBM_Apocalypse_Wheel_Front",
+      "MaxPriceThreshold": 15000,
+      "MinPriceThreshold": 10000,
+      "SellPricePercent": 50,
+      "MaxStockThreshold": 20,
+      "MinStockThreshold": 10,
+      "QuantityPercent": -1,
+      "SpawnAttachments": [],
+      "Variants": []
+    },
+    {
+      "ClassName": "MBM_Apocalypse_Truck_doors_driver",
+      "MaxPriceThreshold": 15000,
+      "MinPriceThreshold": 10000,
+      "SellPricePercent": 50,
+      "MaxStockThreshold": 20,
+      "MinStockThreshold": 10,
+      "QuantityPercent": -1,
+      "SpawnAttachments": [],
+      "Variants": []
+    },
+    {
+      "ClassName": "MBM_Apocalypse_Truck_doors_codriver",
+      "MaxPriceThreshold": 15000,
+      "MinPriceThreshold": 10000,
+      "SellPricePercent": 50,
+      "MaxStockThreshold": 20,
+      "MinStockThreshold": 10,
+      "QuantityPercent": -1,
+      "SpawnAttachments": [],
+      "Variants": []
+    },
+    {
+      "ClassName": "MBM_Apocalypse_Truck_doors_trunk",
+      "MaxPriceThreshold": 15000,
+      "MinPriceThreshold": 10000,
+      "SellPricePercent": 50,
+      "MaxStockThreshold": 20,
+      "MinStockThreshold": 10,
+      "QuantityPercent": -1,
+      "SpawnAttachments": [],
+      "Variants": []
+    },
+    {
+      "ClassName": "MBM_Apocalypse_Truck_doors_trunk1",
+      "MaxPriceThreshold": 15000,
+      "MinPriceThreshold": 10000,
+      "SellPricePercent": 50,
+      "MaxStockThreshold": 20,
+      "MinStockThreshold": 10,
+      "QuantityPercent": -1,
+      "SpawnAttachments": [],
+      "Variants": []
+    },
+    {
+      "ClassName": "MBM_Apocalypse_Truck_doors_cargo1",
+      "MaxPriceThreshold": 15000,
+      "MinPriceThreshold": 10000,
+      "SellPricePercent": 50,
+      "MaxStockThreshold": 20,
+      "MinStockThreshold": 10,
+      "QuantityPercent": -1,
+      "SpawnAttachments": [],
+      "Variants": []
+    }
+    ]
+}
