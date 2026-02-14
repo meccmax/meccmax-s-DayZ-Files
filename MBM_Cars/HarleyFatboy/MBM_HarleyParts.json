@@ -1,0 +1,109 @@
+{
+    "m_Version": 12,
+    "DisplayName": "MBM Harley Parts",
+    "Icon": "Wrench",
+    "Color": "FBFCFEFF",
+    "IsExchange": 0,
+    "InitStockPercent": 75.0,
+    "Items": [
+        {
+            "ClassName": "MBM_Harley_Plate_9A7218",
+            "MaxPriceThreshold": 5817,
+            "MinPriceThreshold": 5817,
+            "SellPricePercent": -1,
+            "MaxStockThreshold": 100000,
+            "MinStockThreshold": 100000,
+            "QuantityPercent": -1,
+            "SpawnAttachments": [],
+            "Variants": []
+        },
+        {
+            "ClassName": "MBM_Harley_Plate_FatBoy",
+            "MaxPriceThreshold": 5128,
+            "MinPriceThreshold": 5128,
+            "SellPricePercent": -1,
+            "MaxStockThreshold": 100000,
+            "MinStockThreshold": 100000,
+            "QuantityPercent": -1,
+            "SpawnAttachments": [],
+            "Variants": []
+        },
+        {
+            "ClassName": "MBM_HarleyFatBoy_SaddleBags",
+            "MaxPriceThreshold": 6067,
+            "MinPriceThreshold": 6067,
+            "SellPricePercent": -1,
+            "MaxStockThreshold": 100000,
+            "MinStockThreshold": 100000,
+            "QuantityPercent": -1,
+            "SpawnAttachments": [],
+            "Variants": []
+        },
+        {
+            "ClassName": "MBM_HarleyDavidsonFatBoy_Wheel_Front",
+            "MaxPriceThreshold": 10119,
+            "MinPriceThreshold": 10119,
+            "SellPricePercent": -1,
+            "MaxStockThreshold": 100000,
+            "MinStockThreshold": 100000,
+            "QuantityPercent": -1,
+            "SpawnAttachments": [],
+            "Variants": []
+        },
+        {
+            "ClassName": "MBM_HarleyDavidsonFatBoy_Wheel_Rear",
+            "MaxPriceThreshold": 10419,
+            "MinPriceThreshold": 10419,
+            "SellPricePercent": -1,
+            "MaxStockThreshold": 100000,
+            "MinStockThreshold": 100000,
+            "QuantityPercent": -1,
+            "SpawnAttachments": [],
+            "Variants": []
+        },
+        {
+            "ClassName": "MBM_HarleyDavidsonFatBoy_Wheel_Front_Spoked",
+            "MaxPriceThreshold": 7725,
+            "MinPriceThreshold": 7725,
+            "SellPricePercent": -1,
+            "MaxStockThreshold": 100000,
+            "MinStockThreshold": 100000,
+            "QuantityPercent": -1,
+            "SpawnAttachments": [],
+            "Variants": []
+        },
+        {
+            "ClassName": "MBM_HarleyDavidsonFatBoy_Wheel_Rear_Spoked",
+            "MaxPriceThreshold": 9038,
+            "MinPriceThreshold": 9038,
+            "SellPricePercent": -1,
+            "MaxStockThreshold": 100000,
+            "MinStockThreshold": 100000,
+            "QuantityPercent": -1,
+            "SpawnAttachments": [],
+            "Variants": []
+        },
+        {
+            "ClassName": "MBM_HarleyDavidsonFatBoy_Wheel_Destroyed",
+            "MaxPriceThreshold": 11124,
+            "MinPriceThreshold": 11124,
+            "SellPricePercent": -1,
+            "MaxStockThreshold": 100000,
+            "MinStockThreshold": 100000,
+            "QuantityPercent": -1,
+            "SpawnAttachments": [],
+            "Variants": []
+        },
+        {
+            "ClassName": "MBM_HarleyDavidsonFatBoy_Wheel_Spoked_Destroyed",
+            "MaxPriceThreshold": 7389,
+            "MinPriceThreshold": 7389,
+            "SellPricePercent": -1,
+            "MaxStockThreshold": 100000,
+            "MinStockThreshold": 100000,
+            "QuantityPercent": -1,
+            "SpawnAttachments": [],
+            "Variants": []
+        }
+    ]
+}
