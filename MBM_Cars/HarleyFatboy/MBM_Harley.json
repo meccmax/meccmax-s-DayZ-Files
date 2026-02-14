@@ -1,0 +1,210 @@
+{
+    "m_Version": 12,
+    "DisplayName": "MBM Harley",
+    "Icon": "Deliver",
+    "Color": "FBFCFEFF",
+    "IsExchange": 0,
+    "InitStockPercent": 75.0,
+    "Items": [
+        {
+            "ClassName": "MBM_HarleyDavidsonFatBoy_Black",
+            "MaxPriceThreshold": 90000,
+            "MinPriceThreshold": 90000,
+            "SellPricePercent": -1,
+            "MaxStockThreshold": 100000,
+            "MinStockThreshold": 100000,
+            "QuantityPercent": -1,
+            "SpawnAttachments": [
+                "CarBattery",
+                "SparkPlug",
+                "HeadlightH7",
+                "HeadlightH7",
+                "MBM_HarleyFatBoy_SaddleBags",
+                "MBM_HarleyFatBoy_SaddleBags",
+                "MBM_HarleyDavidsonFatBoy_Wheel_Front",
+                "MBM_HarleyDavidsonFatBoy_Wheel_Rear"
+            ],
+            "Variants": []
+        },
+        {
+            "ClassName": "MBM_HarleyDavidsonFatBoy_White",
+            "MaxPriceThreshold": 90000,
+            "MinPriceThreshold": 90000,
+            "SellPricePercent": -1,
+            "MaxStockThreshold": 100000,
+            "MinStockThreshold": 100000,
+            "QuantityPercent": -1,
+            "SpawnAttachments": [
+                "CarBattery",
+                "SparkPlug",
+                "HeadlightH7",
+                "HeadlightH7",
+                "MBM_HarleyFatBoy_SaddleBags",
+                "MBM_HarleyFatBoy_SaddleBags",
+                "MBM_HarleyDavidsonFatBoy_Wheel_Front",
+                "MBM_HarleyDavidsonFatBoy_Wheel_Rear"
+            ],
+            "Variants": []
+        },
+        {
+            "ClassName": "MBM_HarleyDavidsonFatBoy_Pink",
+            "MaxPriceThreshold": 90000,
+            "MinPriceThreshold": 90000,
+            "SellPricePercent": -1,
+            "MaxStockThreshold": 100000,
+            "MinStockThreshold": 100000,
+            "QuantityPercent": -1,
+            "SpawnAttachments": [
+                "CarBattery",
+                "SparkPlug",
+                "HeadlightH7",
+                "HeadlightH7",
+                "MBM_HarleyFatBoy_SaddleBags",
+                "MBM_HarleyFatBoy_SaddleBags",
+                "MBM_HarleyDavidsonFatBoy_Wheel_Front",
+                "MBM_HarleyDavidsonFatBoy_Wheel_Rear"
+            ],
+            "Variants": []
+        },
+        {
+            "ClassName": "MBM_HarleyDavidsonFatBoy_Red",
+            "MaxPriceThreshold": 90000,
+            "MinPriceThreshold": 90000,
+            "SellPricePercent": -1,
+            "MaxStockThreshold": 100000,
+            "MinStockThreshold": 100000,
+            "QuantityPercent": -1,
+            "SpawnAttachments": [
+                "CarBattery",
+                "SparkPlug",
+                "HeadlightH7",
+                "HeadlightH7",
+                "MBM_HarleyFatBoy_SaddleBags",
+                "MBM_HarleyFatBoy_SaddleBags",
+                "MBM_HarleyDavidsonFatBoy_Wheel_Front",
+                "MBM_HarleyDavidsonFatBoy_Wheel_Rear"
+            ],
+            "Variants": []
+        },
+        {
+            "ClassName": "MBM_HarleyDavidsonFatBoy_Blue",
+            "MaxPriceThreshold": 90000,
+            "MinPriceThreshold": 90000,
+            "SellPricePercent": -1,
+            "MaxStockThreshold": 100000,
+            "MinStockThreshold": 100000,
+            "QuantityPercent": -1,
+            "SpawnAttachments": [
+                "CarBattery",
+                "SparkPlug",
+                "HeadlightH7",
+                "HeadlightH7",
+                "MBM_HarleyFatBoy_SaddleBags",
+                "MBM_HarleyFatBoy_SaddleBags",
+                "MBM_HarleyDavidsonFatBoy_Wheel_Front",
+                "MBM_HarleyDavidsonFatBoy_Wheel_Rear"
+            ],
+            "Variants": []
+        },
+        {
+            "ClassName": "MBM_HarleyDavidsonFatBoy_Green",
+            "MaxPriceThreshold": 90000,
+            "MinPriceThreshold": 90000,
+            "SellPricePercent": -1,
+            "MaxStockThreshold": 100000,
+            "MinStockThreshold": 100000,
+            "QuantityPercent": -1,
+            "SpawnAttachments": [
+                "CarBattery",
+                "SparkPlug",
+                "HeadlightH7",
+                "HeadlightH7",
+                "MBM_HarleyFatBoy_SaddleBags",
+                "MBM_HarleyFatBoy_SaddleBags",
+                "MBM_HarleyDavidsonFatBoy_Wheel_Front",
+                "MBM_HarleyDavidsonFatBoy_Wheel_Rear"
+            ],
+            "Variants": []
+        },
+        {
+            "ClassName": "MBM_HarleyDavidsonFatBoy_Orange",
+            "MaxPriceThreshold": 90000,
+            "MinPriceThreshold": 90000,
+            "SellPricePercent": -1,
+            "MaxStockThreshold": 100000,
+            "MinStockThreshold": 100000,
+            "QuantityPercent": -1,
+            "SpawnAttachments": [
+                "CarBattery",
+                "SparkPlug",
+                "HeadlightH7",
+                "HeadlightH7",
+                "MBM_HarleyFatBoy_SaddleBags",
+                "MBM_HarleyFatBoy_SaddleBags",
+                "MBM_HarleyDavidsonFatBoy_Wheel_Front",
+                "MBM_HarleyDavidsonFatBoy_Wheel_Rear"
+            ],
+            "Variants": []
+        },
+        {
+            "ClassName": "MBM_HarleyDavidsonFatBoy_Yellow",
+            "MaxPriceThreshold": 90000,
+            "MinPriceThreshold": 90000,
+            "SellPricePercent": -1,
+            "MaxStockThreshold": 100000,
+            "MinStockThreshold": 100000,
+            "QuantityPercent": -1,
+            "SpawnAttachments": [
+                "CarBattery",
+                "SparkPlug",
+                "HeadlightH7",
+                "HeadlightH7",
+                "MBM_HarleyFatBoy_SaddleBags",
+                "MBM_HarleyFatBoy_SaddleBags",
+                "MBM_HarleyDavidsonFatBoy_Wheel_Front",
+                "MBM_HarleyDavidsonFatBoy_Wheel_Rear"
+            ],
+            "Variants": []
+        },
+        {
+            "ClassName": "MBM_HarleyDavidsonFatBoy_Gold",
+            "MaxPriceThreshold": 90000,
+            "MinPriceThreshold": 90000,
+            "SellPricePercent": -1,
+            "MaxStockThreshold": 100000,
+            "MinStockThreshold": 100000,
+            "QuantityPercent": -1,
+            "SpawnAttachments": [
+                "CarBattery",
+                "SparkPlug",
+                "HeadlightH7",
+                "HeadlightH7",
+                "MBM_HarleyFatBoy_SaddleBags",
+                "MBM_HarleyFatBoy_SaddleBags",
+                "MBM_HarleyDavidsonFatBoy_Wheel_Front",
+                "MBM_HarleyDavidsonFatBoy_Wheel_Rear"
+            ],
+            "Variants": []
+        },
+        {
+            "ClassName": "MBM_HarleyDavidsonFatBoy_Police",
+            "MaxPriceThreshold": 90000,
+            "MinPriceThreshold": 90000,
+            "SellPricePercent": -1,
+            "MaxStockThreshold": 100000,
+            "MinStockThreshold": 100000,
+            "QuantityPercent": -1,
+            "SpawnAttachments": [
+                "CarBattery",
+                "SparkPlug",
+                "HeadlightH7",
+                "HeadlightH7",
+                "MBM_HarleyFatBoy_SaddleBags",
+                "MBM_HarleyFatBoy_SaddleBags",
+                "MBM_HarleyDavidsonFatBoy_Wheel_Front",
+                "MBM_HarleyDavidsonFatBoy_Wheel_Rear"
+            ],
+            "Variants": []
+        }
+    ]
+}
