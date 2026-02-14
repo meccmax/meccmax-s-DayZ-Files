@@ -85,8 +85,8 @@
         },
         {
             "ClassName": "MBM_HarleyDavidsonFatBoy_Wheel_Destroyed",
-            "MaxPriceThreshold": 11124,
-            "MinPriceThreshold": 11124,
+            "MaxPriceThreshold": 114,
+            "MinPriceThreshold": 114,
             "SellPricePercent": -1,
             "MaxStockThreshold": 100000,
             "MinStockThreshold": 100000,
