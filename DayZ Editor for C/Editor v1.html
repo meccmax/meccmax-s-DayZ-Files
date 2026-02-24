@@ -1,0 +1,1394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DayZ Car Mod Tool</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Barlow+Condensed:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:       #0a0c0e;
+    --surface:  #111418;
+    --panel:    #161b21;
+    --border:   #2a3040;
+    --accent:   #e8a020;
+    --accent2:  #3a8fff;
+    --danger:   #e84040;
+    --success:  #30c060;
+    --text:     #c8d0dc;
+    --dim:      #5a6478;
+    --mono:     'Share Tech Mono', monospace;
+    --sans:     'Barlow Condensed', sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 15px;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* scanline overlay */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.04) 2px, rgba(0,0,0,0.04) 4px);
+    pointer-events: none;
+    z-index: 9999;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: var(--surface);
+    border-bottom: 2px solid var(--accent);
+    padding: 0 32px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    height: 64px;
+    position: sticky; top: 0; z-index: 100;
+  }
+  .logo-icon {
+    width: 36px; height: 36px;
+    background: var(--accent);
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    display: grid; place-items: center;
+    font-size: 16px;
+  }
+  header h1 {
+    font-size: 22px;
+    font-weight: 900;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #fff;
+  }
+  header h1 span { color: var(--accent); }
+  .header-tag {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--dim);
+    background: rgba(255,255,255,0.05);
+    padding: 3px 8px;
+    border: 1px solid var(--border);
+    letter-spacing: 1px;
+    margin-left: auto;
+  }
+
+  /* ── LAYOUT ── */
+  .app { display: grid; grid-template-columns: 260px 1fr; min-height: calc(100vh - 64px); }
+
+  /* ── SIDEBAR ── */
+  .sidebar {
+    background: var(--surface);
+    border-right: 1px solid var(--border);
+    padding: 24px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .sidebar-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--dim);
+    letter-spacing: 2px;
+    padding: 8px 20px 4px;
+    text-transform: uppercase;
+  }
+  .nav-btn {
+    display: flex; align-items: center; gap: 12px;
+    padding: 11px 20px;
+    background: none; border: none;
+    color: var(--dim);
+    font-family: var(--sans);
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    text-align: left;
+    border-left: 3px solid transparent;
+    transition: all 0.15s;
+    width: 100%;
+  }
+  .nav-btn:hover { color: var(--text); background: rgba(255,255,255,0.03); }
+  .nav-btn.active {
+    color: var(--accent);
+    background: rgba(232,160,32,0.08);
+    border-left-color: var(--accent);
+  }
+  .nav-btn .icon { font-size: 16px; width: 20px; text-align: center; }
+  .sidebar-divider { height: 1px; background: var(--border); margin: 12px 20px; }
+
+  /* ── MAIN ── */
+  main { padding: 32px; overflow-y: auto; }
+
+  .tab { display: none; }
+  .tab.active { display: block; }
+
+  /* ── SECTION TITLES ── */
+  .section-title {
+    font-size: 11px;
+    font-family: var(--mono);
+    color: var(--accent);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* ── CARDS ── */
+  .card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    padding: 24px;
+    margin-bottom: 20px;
+  }
+  .card-title {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #fff;
+    margin-bottom: 18px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .card-title::before {
+    content: '';
+    width: 4px; height: 16px;
+    background: var(--accent);
+    display: inline-block;
+  }
+
+  /* ── FORM ELEMENTS ── */
+  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .form-grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  .form-group { display: flex; flex-direction: column; gap: 6px; }
+  .form-group.full { grid-column: 1 / -1; }
+
+  label {
+    font-size: 11px;
+    font-family: var(--mono);
+    color: var(--dim);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  input[type="text"], input[type="number"], select, textarea {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-family: var(--mono);
+    font-size: 13px;
+    padding: 9px 12px;
+    outline: none;
+    transition: border-color 0.15s;
+    width: 100%;
+  }
+  input:focus, select:focus, textarea:focus { border-color: var(--accent); }
+  select { cursor: pointer; }
+  select option { background: var(--panel); }
+  textarea { resize: vertical; min-height: 80px; }
+
+  /* ── TOGGLE SWITCH ── */
+  .toggle-row {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 10px 14px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    margin-bottom: 8px;
+  }
+  .toggle-label { font-size: 13px; font-weight: 600; letter-spacing: 1px; }
+  .toggle-sub { font-size: 11px; font-family: var(--mono); color: var(--dim); margin-top: 2px; }
+  .toggle {
+    position: relative; width: 44px; height: 24px; flex-shrink: 0;
+  }
+  .toggle input { opacity: 0; width: 0; height: 0; }
+  .toggle-slider {
+    position: absolute; inset: 0;
+    background: var(--border);
+    cursor: pointer;
+    transition: 0.2s;
+  }
+  .toggle-slider::before {
+    content: '';
+    position: absolute;
+    width: 18px; height: 18px;
+    left: 3px; top: 3px;
+    background: var(--dim);
+    transition: 0.2s;
+  }
+  .toggle input:checked + .toggle-slider { background: rgba(232,160,32,0.3); }
+  .toggle input:checked + .toggle-slider::before {
+    transform: translateX(20px);
+    background: var(--accent);
+  }
+
+  /* ── BUTTONS ── */
+  .btn {
+    font-family: var(--sans);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 11px 24px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.15s;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .btn-primary {
+    background: var(--accent);
+    color: #000;
+  }
+  .btn-primary:hover { background: #f0b030; }
+  .btn-secondary {
+    background: transparent;
+    color: var(--text);
+    border: 1px solid var(--border);
+  }
+  .btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+  .btn-danger { background: var(--danger); color: #fff; }
+  .btn-success { background: var(--success); color: #000; }
+  .btn-group { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px; }
+
+  /* ── WHEELS TABLE ── */
+  .wheels-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 8px;
+    margin-top: 8px;
+  }
+  .wheel-tag {
+    font-family: var(--mono);
+    font-size: 11px;
+    padding: 6px 10px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    color: var(--dim);
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 6px;
+  }
+  .wheel-tag .del {
+    color: var(--danger); cursor: pointer; font-size: 14px; line-height: 1;
+    background: none; border: none; padding: 0;
+  }
+  .wheel-tag .del:hover { color: #ff6060; }
+
+  /* ── OUTPUT ── */
+  .output-area {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    font-family: var(--mono);
+    font-size: 12px;
+    color: #8fc0a0;
+    padding: 16px;
+    max-height: 400px;
+    overflow-y: auto;
+    white-space: pre;
+    line-height: 1.6;
+  }
+  .output-area.error { color: #e88080; }
+
+  /* ── FILE DROP ── */
+  .drop-zone {
+    border: 2px dashed var(--border);
+    padding: 32px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: var(--bg);
+    margin-bottom: 16px;
+  }
+  .drop-zone:hover, .drop-zone.dragover {
+    border-color: var(--accent);
+    background: rgba(232,160,32,0.04);
+  }
+  .drop-zone .drop-icon { font-size: 32px; margin-bottom: 8px; }
+  .drop-zone p { font-size: 13px; color: var(--dim); font-family: var(--mono); }
+  .drop-zone p span { color: var(--accent); }
+  #file-input { display: none; }
+
+  /* ── BADGE ── */
+  .badge {
+    font-family: var(--mono);
+    font-size: 10px;
+    padding: 2px 7px;
+    letter-spacing: 1px;
+  }
+  .badge-warn { background: rgba(232,160,32,0.15); color: var(--accent); border: 1px solid rgba(232,160,32,0.3); }
+  .badge-info { background: rgba(58,143,255,0.15); color: var(--accent2); border: 1px solid rgba(58,143,255,0.3); }
+  .badge-ok   { background: rgba(48,192,96,0.15);  color: var(--success); border: 1px solid rgba(48,192,96,0.3); }
+
+  /* ── PRICE ROW ── */
+  .price-row {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    gap: 10px; align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+  }
+  .price-row:last-child { border-bottom: none; }
+  .price-row label { font-family: var(--sans); font-size: 13px; color: var(--text); text-transform: none; letter-spacing: 0; }
+  .price-row input { width: 110px; text-align: right; }
+
+  /* ── STATUS BAR ── */
+  #status-bar {
+    position: fixed; bottom: 0; left: 0; right: 0;
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    padding: 6px 32px;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--dim);
+    display: flex; align-items: center; gap: 16px;
+    z-index: 100;
+  }
+  #status-bar .pulse {
+    width: 6px; height: 6px;
+    background: var(--success);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%,100% { opacity: 1; } 50% { opacity: 0.3; }
+  }
+  #status-msg { color: var(--text); }
+
+  /* ── MISC ── */
+  .hint { font-family: var(--mono); font-size: 11px; color: var(--dim); margin-top: 4px; }
+  .classname-list {
+    font-family: var(--mono); font-size: 12px; color: var(--dim);
+    max-height: 120px; overflow-y: auto;
+    padding: 8px; background: var(--bg); border: 1px solid var(--border);
+    margin-top: 6px;
+  }
+  .classname-list div { padding: 2px 0; }
+  .classname-list div.vehicle { color: var(--accent2); }
+  .classname-list div.part { color: #8fc0a0; }
+
+  .tabs-inner {
+    display: flex; gap: 0; margin-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+  .tab-inner-btn {
+    font-family: var(--sans); font-size: 12px; font-weight: 700;
+    letter-spacing: 2px; text-transform: uppercase;
+    padding: 10px 20px;
+    background: none; border: none; border-bottom: 2px solid transparent;
+    color: var(--dim); cursor: pointer;
+    margin-bottom: -1px;
+  }
+  .tab-inner-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+  .result-file {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 10px 14px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    margin-bottom: 8px;
+  }
+  .result-file .fname { font-family: var(--mono); font-size: 12px; color: var(--accent2); }
+  .result-file .fsize { font-family: var(--mono); font-size: 11px; color: var(--dim); }
+
+  pb-100 { padding-bottom: 100px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo-icon">⚙</div>
+  <h1>DayZ <span>Car Mod</span> Tool</h1>
+  <div class="header-tag">v1.0.0 // EXPANSION MARKET GENERATOR</div>
+</header>
+
+<div class="app">
+  <!-- SIDEBAR -->
+  <nav class="sidebar">
+    <div class="sidebar-label">Modules</div>
+    <button class="nav-btn active" onclick="showTab('tab-generate')" id="nav-generate">
+      <span class="icon">⚡</span> Generate Files
+    </button>
+    <button class="nav-btn" onclick="showTab('tab-prices')" id="nav-prices">
+      <span class="icon">💰</span> Price Settings
+    </button>
+    <button class="nav-btn" onclick="showTab('tab-batch')" id="nav-batch">
+      <span class="icon">📦</span> Batch Update
+    </button>
+    <button class="nav-btn" onclick="showTab('tab-trader')" id="nav-trader">
+      <span class="icon">🏪</span> Trader Config
+    </button>
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-label">Info</div>
+    <button class="nav-btn" onclick="showTab('tab-help')" id="nav-help">
+      <span class="icon">📖</span> How To Use
+    </button>
+  </nav>
+
+  <!-- MAIN -->
+  <main>
+
+    <!-- ══════════════════════════════════════════
+         TAB: GENERATE FILES
+    ══════════════════════════════════════════ -->
+    <div class="tab active" id="tab-generate">
+      <div class="section-title">Generate From .c File</div>
+
+      <!-- Step 1: Upload -->
+      <div class="card">
+        <div class="card-title">Step 1 — Upload .c File</div>
+        <div class="drop-zone" id="drop-zone" onclick="document.getElementById('file-input').click()">
+          <div class="drop-icon">📄</div>
+          <p>Drop your <span>.c script file</span> here, or click to browse</p>
+          <p id="drop-filename" style="color:var(--accent);margin-top:8px;"></p>
+        </div>
+        <input type="file" id="file-input" accept=".c,.txt">
+      </div>
+
+      <!-- Step 2: Wheels -->
+      <div class="card">
+        <div class="card-title">Step 2 — Wheel Classnames</div>
+        <p class="hint" style="margin-bottom:12px;">Paste wheel classnames below, one per line (from the mod's config or a screenshot). These cannot be auto-detected.</p>
+        <textarea id="wheel-input" placeholder="Star_MyMod_Wheel&#10;Star_MyMod_wheel_Blue&#10;Star_MyMod_wheel_Red&#10;Star_MyMod_Wheel_destroyed" style="height:120px;"></textarea>
+        <p class="hint" style="margin-top:6px;">Tip: The base wheel (first type) will be used for spawn attachments, matched to car colour where possible.</p>
+      </div>
+
+      <!-- Step 3: Settings -->
+      <div class="card">
+        <div class="card-title">Step 3 — Generation Settings</div>
+
+        <div class="form-grid" style="margin-bottom:16px;">
+          <div class="form-group">
+            <label>Vehicle Price</label>
+            <input type="number" id="veh-price" value="700000">
+          </div>
+          <div class="form-group">
+            <label>Max/Min Stock (Vehicles)</label>
+            <div style="display:flex;gap:8px;">
+              <input type="number" id="veh-max-stock" value="3" placeholder="Max">
+              <input type="number" id="veh-min-stock" value="1" placeholder="Min">
+            </div>
+          </div>
+        </div>
+
+        <div class="card-title" style="font-size:11px;margin-bottom:12px;">Spawn Attachments</div>
+
+        <div class="toggle-row">
+          <div>
+            <div class="toggle-label">Battery Type</div>
+            <div class="toggle-sub" id="battery-label">Using: CarBattery</div>
+          </div>
+          <label class="toggle">
+            <input type="checkbox" id="toggle-battery" onchange="updateLabels()">
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+
+        <div class="toggle-row">
+          <div>
+            <div class="toggle-label">Spark / Glow Plug</div>
+            <div class="toggle-sub" id="plug-label">Using: SparkPlug</div>
+          </div>
+          <label class="toggle">
+            <input type="checkbox" id="toggle-plug" onchange="updateLabels()">
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+
+        <div class="toggle-row">
+          <div>
+            <div class="toggle-label">Headlights</div>
+            <div class="toggle-sub" id="headlight-count-label">Quantity: 2x HeadlightH7</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;">
+            <input type="number" id="headlight-count" value="2" min="1" max="4" style="width:60px;text-align:center;" oninput="updateLabels()">
+          </div>
+        </div>
+
+        <div class="toggle-row">
+          <div>
+            <div class="toggle-label">Include CarRadiator</div>
+            <div class="toggle-sub">Spawned as attachment on each vehicle</div>
+          </div>
+          <label class="toggle">
+            <input type="checkbox" id="toggle-radiator" checked>
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+
+        <div class="toggle-row" style="margin-top:8px;">
+          <div>
+            <div class="toggle-label">Wheel Quantity</div>
+            <div class="toggle-sub">Wheels spawned per vehicle</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;">
+            <input type="number" id="wheel-count" value="5" min="1" max="6" style="width:60px;text-align:center;">
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 4: Generate -->
+      <div class="card">
+        <div class="card-title">Step 4 — Generate</div>
+        <div id="detected-info" style="margin-bottom:16px;display:none;">
+          <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:10px;">
+            <span class="badge badge-info" id="badge-vehicles"></span>
+            <span class="badge badge-ok" id="badge-parts"></span>
+            <span class="badge badge-warn" id="badge-wheels"></span>
+          </div>
+          <div class="classname-list" id="classname-preview"></div>
+        </div>
+        <div class="btn-group">
+          <button class="btn btn-primary" onclick="parseFile()">⚡ Parse .c File</button>
+          <button class="btn btn-success" onclick="generateAll()" id="btn-generate" disabled>📦 Generate All Files</button>
+        </div>
+      </div>
+
+      <!-- Output -->
+      <div id="output-section" style="display:none;">
+        <div class="section-title">Generated Files</div>
+        <div id="result-files"></div>
+        <div class="btn-group">
+          <button class="btn btn-primary" onclick="downloadAll()">⬇ Download All Files</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════
+         TAB: PRICE SETTINGS
+    ══════════════════════════════════════════ -->
+    <div class="tab" id="tab-prices">
+      <div class="section-title">Default Price Configuration</div>
+
+      <div class="card">
+        <div class="card-title">Vehicle Prices</div>
+        <div class="price-row">
+          <label>All vehicles (min & max)</label>
+          <input type="number" id="p-veh" value="700000">
+          <span class="badge badge-warn">VEHICLE</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Parts Prices (Min / Max)</div>
+        <div class="price-row">
+          <label>Hood</label>
+          <input type="number" id="p-hood-min" value="2500">
+          <input type="number" id="p-hood-max" value="5000">
+        </div>
+        <div class="price-row">
+          <label>Trunk</label>
+          <input type="number" id="p-trunk-min" value="2500">
+          <input type="number" id="p-trunk-max" value="5000">
+        </div>
+        <div class="price-row">
+          <label>Driver Door</label>
+          <input type="number" id="p-driver-min" value="2000">
+          <input type="number" id="p-driver-max" value="4000">
+        </div>
+        <div class="price-row">
+          <label>Co-Driver Door</label>
+          <input type="number" id="p-codriver-min" value="2000">
+          <input type="number" id="p-codriver-max" value="4000">
+        </div>
+        <div class="price-row">
+          <label>Cargo Doors</label>
+          <input type="number" id="p-cargo-min" value="2000">
+          <input type="number" id="p-cargo-max" value="4000">
+        </div>
+        <div class="price-row">
+          <label>Wheel (normal)</label>
+          <input type="number" id="p-wheel-min" value="1500">
+          <input type="number" id="p-wheel-max" value="3000">
+        </div>
+        <div class="price-row">
+          <label>Wheel (destroyed)</label>
+          <input type="number" id="p-wheelD-min" value="100">
+          <input type="number" id="p-wheelD-max" value="500">
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">types.xml Settings</div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Vehicle Lifetime (seconds)</label>
+            <input type="number" id="t-veh-lifetime" value="3888000">
+            <p class="hint">3888000 = 45 days</p>
+          </div>
+          <div class="form-group">
+            <label>Parts Lifetime (seconds)</label>
+            <input type="number" id="t-parts-lifetime" value="28800">
+            <p class="hint">28800 = 8 hours</p>
+          </div>
+          <div class="form-group">
+            <label>Nominal (vehicles)</label>
+            <input type="number" id="t-veh-nominal" value="0">
+          </div>
+          <div class="form-group">
+            <label>Min (vehicles)</label>
+            <input type="number" id="t-veh-min" value="0">
+          </div>
+        </div>
+      </div>
+
+      <div class="btn-group">
+        <button class="btn btn-primary" onclick="savePrices()">💾 Save Prices</button>
+        <button class="btn btn-secondary" onclick="resetPrices()">↺ Reset Defaults</button>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════
+         TAB: BATCH UPDATE
+    ══════════════════════════════════════════ -->
+    <div class="tab" id="tab-batch">
+      <div class="section-title">Batch Update Existing Market Files</div>
+
+      <div class="card">
+        <div class="card-title">Upload Market JSON Files</div>
+        <p class="hint" style="margin-bottom:12px;">Drop multiple vehicle or parts market JSON files to update their prices all at once.</p>
+        <div class="drop-zone" id="batch-drop" onclick="document.getElementById('batch-input').click()">
+          <div class="drop-icon">📂</div>
+          <p>Drop <span>multiple .json files</span> here, or click to browse</p>
+        </div>
+        <input type="file" id="batch-input" accept=".json" multiple>
+        <div id="batch-file-list" style="margin-top:12px;"></div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Update Settings</div>
+
+        <div class="toggle-row">
+          <div>
+            <div class="toggle-label">Update Vehicle Prices</div>
+            <div class="toggle-sub">Set all car entries to vehicle price</div>
+          </div>
+          <label class="toggle">
+            <input type="checkbox" id="batch-veh-price" checked>
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+
+        <div class="toggle-row">
+          <div>
+            <div class="toggle-label">Update Parts Prices</div>
+            <div class="toggle-sub">Classify parts and apply tiered pricing</div>
+          </div>
+          <label class="toggle">
+            <input type="checkbox" id="batch-parts-price" checked>
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+
+        <div class="toggle-row">
+          <div>
+            <div class="toggle-label">Swap Battery Type</div>
+            <div class="toggle-sub" id="batch-battery-label">CarBattery → TruckBattery</div>
+          </div>
+          <label class="toggle">
+            <input type="checkbox" id="batch-battery" onchange="updateBatchLabels()">
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+
+        <div class="toggle-row">
+          <div>
+            <div class="toggle-label">Swap Plug Type</div>
+            <div class="toggle-sub" id="batch-plug-label">SparkPlug → GlowPlug</div>
+          </div>
+          <label class="toggle">
+            <input type="checkbox" id="batch-plug" onchange="updateBatchLabels()">
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+      </div>
+
+      <div class="btn-group">
+        <button class="btn btn-primary" onclick="runBatch()">⚡ Run Batch Update</button>
+      </div>
+
+      <div id="batch-output" style="margin-top:20px;display:none;">
+        <div class="section-title">Results</div>
+        <div id="batch-results"></div>
+        <div class="btn-group" style="margin-top:12px;">
+          <button class="btn btn-primary" onclick="downloadBatch()">⬇ Download Updated Files</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════
+         TAB: TRADER CONFIG
+    ══════════════════════════════════════════ -->
+    <div class="tab" id="tab-trader">
+      <div class="section-title">Trader Config Updater</div>
+
+      <div class="card">
+        <div class="card-title">Upload Trader JSON</div>
+        <div class="drop-zone" id="trader-drop" onclick="document.getElementById('trader-input').click()">
+          <div class="drop-icon">🏪</div>
+          <p>Drop your <span>Vehicles.json or Vehicle_Parts.json</span> trader file here</p>
+          <p id="trader-filename" style="color:var(--accent);margin-top:8px;"></p>
+        </div>
+        <input type="file" id="trader-input" accept=".json">
+      </div>
+
+      <div class="card">
+        <div class="card-title">Add Categories</div>
+        <p class="hint" style="margin-bottom:12px;">Enter category names to add, one per line. Append <code style="color:var(--accent)">:3</code> for parts categories.</p>
+        <textarea id="trader-cats" placeholder="MyCarMod&#10;MyCarMod_Parts:3&#10;AnotherMod&#10;AnotherMod_Parts:3" style="height:150px;"></textarea>
+        <div class="toggle-row" style="margin-top:12px;">
+          <div>
+            <div class="toggle-label">Parts-only mode</div>
+            <div class="toggle-sub">Only add parts (no :3 suffix added automatically)</div>
+          </div>
+          <label class="toggle">
+            <input type="checkbox" id="trader-parts-only">
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+      </div>
+
+      <div class="btn-group">
+        <button class="btn btn-primary" onclick="updateTrader()">⚡ Update Trader File</button>
+      </div>
+
+      <div id="trader-output" style="margin-top:20px;display:none;">
+        <div class="section-title">Preview</div>
+        <div class="output-area" id="trader-preview" style="max-height:300px;"></div>
+        <div class="btn-group" style="margin-top:12px;">
+          <button class="btn btn-primary" onclick="downloadTrader()">⬇ Download Updated File</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════
+         TAB: HELP
+    ══════════════════════════════════════════ -->
+    <div class="tab" id="tab-help">
+      <div class="section-title">How To Use</div>
+      <div class="card">
+        <div class="card-title">Generate Files (from .c script)</div>
+        <p style="line-height:1.8;color:var(--text);">
+          1. Go to <b>Generate Files</b> and upload your car mod's <code style="color:var(--accent)">.c</code> script file.<br>
+          2. Paste the wheel classnames (from the mod's config or a screenshot) — one per line.<br>
+          3. Configure spawn attachments — battery type, plug type, headlight count, wheel count.<br>
+          4. Click <b>Parse .c File</b> to detect all classnames, then <b>Generate All Files</b>.<br>
+          5. Download: <code style="color:var(--accent2)">classnames.txt</code>, <code style="color:var(--accent2)">types.xml</code>, <code style="color:var(--accent2)">[ModName].json</code>, <code style="color:var(--accent2)">[ModName]_Parts.json</code>
+        </p>
+      </div>
+      <div class="card">
+        <div class="card-title">Batch Update Existing Files</div>
+        <p style="line-height:1.8;color:var(--text);">
+          Go to <b>Batch Update</b> and drop in any existing market JSON files.<br>
+          Choose which updates to apply: reprice vehicles, reprice parts, swap battery/plug types.<br>
+          Download the updated files individually.
+        </p>
+      </div>
+      <div class="card">
+        <div class="card-title">Trader Config</div>
+        <p style="line-height:1.8;color:var(--text);">
+          Go to <b>Trader Config</b>, drop in your <code style="color:var(--accent)">Vehicles.json</code> or <code style="color:var(--accent)">Vehicle_Parts.json</code>.<br>
+          Type the categories to add, one per line. Use <code style="color:var(--accent)">:3</code> suffix for parts slots.<br>
+          Download the updated file.
+        </p>
+      </div>
+      <div class="card">
+        <div class="card-title">Battery / Plug Options</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:4px;">
+          <div>
+            <p style="color:var(--dim);font-family:var(--mono);font-size:11px;margin-bottom:6px;">CAR (DEFAULT)</p>
+            <p>CarBattery + SparkPlug</p>
+          </div>
+          <div>
+            <p style="color:var(--dim);font-family:var(--mono);font-size:11px;margin-bottom:6px;">TRUCK / DIESEL</p>
+            <p>TruckBattery + GlowPlug</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- STATUS BAR -->
+<div id="status-bar">
+  <div class="pulse"></div>
+  <span>READY</span>
+  <span id="status-msg"></span>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════
+//  STATE
+// ═══════════════════════════════════════════════
+let parsedData = null;       // { modName, colours, parts, wheels }
+let generatedFiles = {};     // filename -> content string
+let batchFiles = [];         // [{name, content}]
+let traderData = null;
+let traderFilename = '';
+
+// ═══════════════════════════════════════════════
+//  NAV
+// ═══════════════════════════════════════════════
+function showTab(id) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.getElementById('nav-' + id.replace('tab-', '')).classList.add('active');
+}
+
+// ═══════════════════════════════════════════════
+//  TOGGLE LABELS
+// ═══════════════════════════════════════════════
+function updateLabels() {
+  const bat = document.getElementById('toggle-battery').checked;
+  const plug = document.getElementById('toggle-plug').checked;
+  const hl = document.getElementById('headlight-count').value;
+  document.getElementById('battery-label').textContent = 'Using: ' + (bat ? 'TruckBattery' : 'CarBattery');
+  document.getElementById('plug-label').textContent = 'Using: ' + (plug ? 'GlowPlug' : 'SparkPlug');
+  document.getElementById('headlight-count-label').textContent = `Quantity: ${hl}x HeadlightH7`;
+}
+
+function updateBatchLabels() {
+  const bat = document.getElementById('batch-battery').checked;
+  const plug = document.getElementById('batch-plug').checked;
+  document.getElementById('batch-battery-label').textContent = bat ? 'TruckBattery → CarBattery' : 'CarBattery → TruckBattery';
+  document.getElementById('batch-plug-label').textContent = plug ? 'GlowPlug → SparkPlug' : 'SparkPlug → GlowPlug';
+}
+
+// ═══════════════════════════════════════════════
+//  FILE DROP — .c file
+// ═══════════════════════════════════════════════
+const dropZone = document.getElementById('drop-zone');
+const fileInput = document.getElementById('file-input');
+let dotCContent = '';
+let dotCFilename = '';
+
+dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('dragover'); });
+dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
+dropZone.addEventListener('drop', e => {
+  e.preventDefault(); dropZone.classList.remove('dragover');
+  const f = e.dataTransfer.files[0];
+  if (f) loadDotC(f);
+});
+fileInput.addEventListener('change', e => { if (e.target.files[0]) loadDotC(e.target.files[0]); });
+
+function loadDotC(file) {
+  const reader = new FileReader();
+  reader.onload = ev => {
+    dotCContent = ev.target.result;
+    dotCFilename = file.name;
+    document.getElementById('drop-filename').textContent = '✓ Loaded: ' + file.name;
+    setStatus('File loaded: ' + file.name);
+  };
+  reader.readAsText(file);
+}
+
+// ═══════════════════════════════════════════════
+//  PARSE .c FILE
+// ═══════════════════════════════════════════════
+function parseFile() {
+  if (!dotCContent) { alert('Please upload a .c file first.'); return; }
+
+  // Detect mod prefix from first class line
+  const classMatch = dotCContent.match(/class\s+(\w+)\s+extends\s+CarScript/);
+  if (!classMatch) { alert('Could not find a class extending CarScript.'); return; }
+  const baseClass = classMatch[1];
+
+  // Extract all classes
+  const classRe = /class\s+(\w+)\s+extends\s+\w+/g;
+  let m;
+  const allClasses = [];
+  while ((m = classRe.exec(dotCContent)) !== null) allClasses.push(m[1]);
+
+  // Find colour variants (classes that start with baseClass)
+  const vehicleClasses = allClasses.filter(c => c === baseClass || c.startsWith(baseClass + '_'));
+  const colours = vehicleClasses.map(c => c === baseClass ? '' : c.replace(baseClass, ''));
+
+  // Extract quoted part names
+  const quotedRe = new RegExp(`"(${baseClass}[^"]*)"`, 'g');
+  const quoted = new Set();
+  while ((m = quotedRe.exec(dotCContent)) !== null) quoted.add(m[1]);
+
+  // Filter out sounds
+  const soundKeywords = ['soundset', 'sound'];
+  const partNames = [...quoted].filter(n => !soundKeywords.some(s => n.toLowerCase().includes(s)));
+
+  // Categorise parts
+  const parts = { hood: [], trunk: [], driver: [], codriver: [], cargo1: [], cargo2: [], other: [] };
+  for (const p of partNames) {
+    const low = p.toLowerCase();
+    if (low.includes('_hood')) parts.hood.push(p);
+    else if (low.includes('_trunk')) parts.trunk.push(p);
+    else if (low.includes('_driver') && !low.includes('co')) parts.driver.push(p);
+    else if (low.includes('codriver') || low.includes('co_driver')) parts.codriver.push(p);
+    else if (low.includes('cargo1')) parts.cargo1.push(p);
+    else if (low.includes('cargo2')) parts.cargo2.push(p);
+    else if (!low.includes('wheel')) parts.other.push(p);
+  }
+
+  // Wheels from user input
+  const wheelRaw = document.getElementById('wheel-input').value.trim();
+  const wheels = wheelRaw ? wheelRaw.split('\n').map(w => w.trim()).filter(Boolean) : [];
+
+  parsedData = { modName: baseClass, colours, parts, wheels, vehicleClasses };
+
+  // UI
+  const preview = document.getElementById('classname-preview');
+  preview.innerHTML = '';
+  vehicleClasses.forEach(c => {
+    const d = document.createElement('div');
+    d.className = 'vehicle'; d.textContent = c;
+    preview.appendChild(d);
+  });
+  [...Object.values(parts).flat()].forEach(c => {
+    const d = document.createElement('div');
+    d.className = 'part'; d.textContent = c;
+    preview.appendChild(d);
+  });
+  wheels.forEach(c => {
+    const d = document.createElement('div');
+    d.style.color = 'var(--accent)'; d.textContent = c;
+    preview.appendChild(d);
+  });
+
+  document.getElementById('badge-vehicles').textContent = vehicleClasses.length + ' vehicles';
+  document.getElementById('badge-parts').textContent = Object.values(parts).flat().length + ' parts';
+  document.getElementById('badge-wheels').textContent = wheels.length + ' wheels';
+  document.getElementById('detected-info').style.display = 'block';
+  document.getElementById('btn-generate').disabled = false;
+  setStatus('Parsed: ' + vehicleClasses.length + ' vehicles, ' + Object.values(parts).flat().length + ' parts');
+}
+
+// ═══════════════════════════════════════════════
+//  HELPERS — pricing
+// ═══════════════════════════════════════════════
+function getPrices() {
+  return {
+    veh:       parseInt(document.getElementById('p-veh').value) || 700000,
+    hoodMin:   parseInt(document.getElementById('p-hood-min').value) || 2500,
+    hoodMax:   parseInt(document.getElementById('p-hood-max').value) || 5000,
+    trunkMin:  parseInt(document.getElementById('p-trunk-min').value) || 2500,
+    trunkMax:  parseInt(document.getElementById('p-trunk-max').value) || 5000,
+    driverMin: parseInt(document.getElementById('p-driver-min').value) || 2000,
+    driverMax: parseInt(document.getElementById('p-driver-max').value) || 4000,
+    codriverMin: parseInt(document.getElementById('p-codriver-min').value) || 2000,
+    codriverMax: parseInt(document.getElementById('p-codriver-max').value) || 4000,
+    cargoMin:  parseInt(document.getElementById('p-cargo-min').value) || 2000,
+    cargoMax:  parseInt(document.getElementById('p-cargo-max').value) || 4000,
+    wheelMin:  parseInt(document.getElementById('p-wheel-min').value) || 1500,
+    wheelMax:  parseInt(document.getElementById('p-wheel-max').value) || 3000,
+    wheelDMin: parseInt(document.getElementById('p-wheelD-min').value) || 100,
+    wheelDMax: parseInt(document.getElementById('p-wheelD-max').value) || 500,
+  };
+}
+
+function classifyPartPrice(cn, p) {
+  const low = cn.toLowerCase();
+  if (low.includes('destroyed')) return [p.wheelDMin, p.wheelDMax];
+  if (low.includes('wheel'))     return [p.wheelMin, p.wheelMax];
+  if (low.includes('hood'))      return [p.hoodMin, p.hoodMax];
+  if (low.includes('trunk'))     return [p.trunkMin, p.trunkMax];
+  if (low.includes('codriver'))  return [p.codriverMin, p.codriverMax];
+  if (low.includes('driver'))    return [p.driverMin, p.driverMax];
+  if (low.includes('cargo'))     return [p.cargoMin, p.cargoMax];
+  return [p.wheelMin, p.wheelMax];
+}
+
+// ═══════════════════════════════════════════════
+//  GET SPAWN ATTACHMENTS
+// ═══════════════════════════════════════════════
+function getSpawnAttachments(colourSuffix, matchingWheel) {
+  const bat  = document.getElementById('toggle-battery').checked ? 'TruckBattery' : 'CarBattery';
+  const plug = document.getElementById('toggle-plug').checked    ? 'GlowPlug'     : 'SparkPlug';
+  const hlCount = parseInt(document.getElementById('headlight-count').value) || 2;
+  const wCount  = parseInt(document.getElementById('wheel-count').value) || 5;
+  const radOn   = document.getElementById('toggle-radiator').checked;
+  const { modName, parts } = parsedData;
+
+  // colour-matched panels
+  const findPart = (arr, suffix) => arr.find(p => p.endsWith(suffix)) || arr.find(p => !p.includes('_' + modName.split('_').pop())) || arr[0];
+
+  const panels = [];
+  const suffix = colourSuffix;
+  const tryAdd = (arr) => { const f = arr.find(p => p.endsWith(suffix)); if (f) panels.push(f); else if (arr.length) panels.push(arr[0]); };
+  tryAdd(parts.hood);
+  tryAdd(parts.trunk);
+  tryAdd(parts.driver);
+  tryAdd(parts.codriver);
+  tryAdd(parts.cargo1);
+  tryAdd(parts.cargo2);
+
+  const wheels = Array(wCount).fill(matchingWheel);
+  const hl = Array(hlCount).fill('HeadlightH7');
+  const rad = radOn ? ['CarRadiator'] : [];
+
+  return [...panels, ...wheels, bat, plug, ...rad, ...hl];
+}
+
+// ═══════════════════════════════════════════════
+//  GENERATE ALL FILES
+// ═══════════════════════════════════════════════
+function generateAll() {
+  if (!parsedData) { alert('Parse the file first.'); return; }
+  const { modName, colours, parts, wheels, vehicleClasses } = parsedData;
+  const p = getPrices();
+  const vehLifetime  = parseInt(document.getElementById('t-veh-lifetime').value)   || 3888000;
+  const partsLifetime = parseInt(document.getElementById('t-parts-lifetime').value) || 28800;
+  const vehNominal = parseInt(document.getElementById('t-veh-nominal').value) || 0;
+  const vehMin     = parseInt(document.getElementById('t-veh-min').value)     || 0;
+  const vehMaxStock = parseInt(document.getElementById('veh-max-stock').value) || 3;
+  const vehMinStock = parseInt(document.getElementById('veh-min-stock').value) || 1;
+
+  // Build wheel colour map: suffix -> best matching base wheel
+  function findWheelForSuffix(suffix) {
+    if (!suffix) return wheels[0] || '';
+    const s = suffix.replace('_', '').toLowerCase();
+    return wheels.find(w => w.toLowerCase().includes(s)) || wheels[0] || '';
+  }
+
+  // ── classnames.txt ────────────────────────────
+  let txt = `# ${modName} - All Classnames\n# ${'='.repeat(38)}\n\n`;
+  const sections = {
+    'VEHICLES': vehicleClasses,
+    'HOODS':    parts.hood,
+    'TRUNKS':   parts.trunk,
+    'DRIVER DOORS':       parts.driver,
+    'CO-DRIVER DOORS':    parts.codriver,
+    'REAR DOORS (LEFT)':  parts.cargo1,
+    'REAR DOORS (RIGHT)': parts.cargo2,
+    'WHEELS': wheels,
+  };
+  for (const [sec, names] of Object.entries(sections)) {
+    if (!names.length) continue;
+    txt += `# ${sec}\n${names.join('\n')}\n\n`;
+  }
+  generatedFiles[`${modName}_classnames.txt`] = txt;
+
+  // ── types.xml ─────────────────────────────────
+  function typeEntry(name, isVehicle) {
+    const lt = isVehicle ? vehLifetime : partsLifetime;
+    const cat = isVehicle ? 'vehicles' : 'vehiclesparts';
+    const nom = isVehicle ? vehNominal : 0;
+    const mn  = isVehicle ? vehMin : 0;
+    return `    <type name="${name}">
+        <nominal>${nom}</nominal>
+        <lifetime>${lt}</lifetime>
+        <restock>0</restock>
+        <min>${mn}</min>
+        <quantmin>-1</quantmin>
+        <quantmax>-1</quantmax>
+        <cost>100</cost>
+        <flags count_in_cargo="0" count_in_hoarder="0" count_in_map="1" count_in_player="0" crafted="0" deloot="0"/>
+        <category name="${cat}"/>
+    </type>`;
+  }
+
+  let xml = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\n<types>\n\n`;
+  xml += `    <!-- ==================== VEHICLES ==================== -->\n`;
+  vehicleClasses.forEach(c => xml += typeEntry(c, true) + '\n');
+  for (const [label, arr] of [
+    ['HOODS', parts.hood], ['TRUNKS', parts.trunk],
+    ['DRIVER DOORS', parts.driver], ['CO-DRIVER DOORS', parts.codriver],
+    ['REAR DOORS (LEFT)', parts.cargo1], ['REAR DOORS (RIGHT)', parts.cargo2],
+  ]) {
+    if (!arr.length) continue;
+    xml += `\n    <!-- ==================== ${label} ==================== -->\n`;
+    arr.forEach(c => xml += typeEntry(c, false) + '\n');
+  }
+  if (wheels.length) {
+    xml += `\n    <!-- ==================== WHEELS ==================== -->\n`;
+    wheels.forEach(c => xml += typeEntry(c, false) + '\n');
+  }
+  xml += '\n</types>';
+  generatedFiles[`${modName}_types.xml`] = xml;
+
+  // ── Vehicle market JSON ───────────────────────
+  const vehicleItems = vehicleClasses.map((cls, i) => {
+    const suffix = colours[i];
+    const wheel = findWheelForSuffix(suffix);
+    return {
+      ClassName: cls,
+      MaxPriceThreshold: p.veh,
+      MinPriceThreshold: p.veh,
+      SellPricePercent: -1,
+      MaxStockThreshold: vehMaxStock,
+      MinStockThreshold: vehMinStock,
+      QuantityPercent: -1,
+      SpawnAttachments: getSpawnAttachments(suffix, wheel),
+      Variants: []
+    };
+  });
+  const vehicleMarket = {
+    m_Version: 12,
+    DisplayName: modName.replace(/_/g, ' '),
+    Icon: 'Car',
+    Color: 'FBFCFEFF',
+    IsExchange: 0,
+    InitStockPercent: 75.0,
+    Items: vehicleItems
+  };
+  generatedFiles[`${modName}.json`] = JSON.stringify(vehicleMarket, null, 4);
+
+  // ── Parts market JSON ─────────────────────────
+  const allParts = [
+    ...parts.hood, ...parts.trunk, ...parts.driver,
+    ...parts.codriver, ...parts.cargo1, ...parts.cargo2,
+    ...wheels
+  ];
+  const partsItems = allParts.map(cn => {
+    const [minP, maxP] = classifyPartPrice(cn, p);
+    return {
+      ClassName: cn,
+      MaxPriceThreshold: maxP,
+      MinPriceThreshold: minP,
+      SellPricePercent: -1,
+      MaxStockThreshold: 10,
+      MinStockThreshold: 3,
+      QuantityPercent: -1,
+      SpawnAttachments: [],
+      Variants: []
+    };
+  });
+  const partsMarket = {
+    m_Version: 12,
+    DisplayName: modName.replace(/_/g, ' ') + ' Parts',
+    Icon: 'Wrench',
+    Color: 'FBFCFEFF',
+    IsExchange: 0,
+    InitStockPercent: 75.0,
+    Items: partsItems
+  };
+  generatedFiles[`${modName}_Parts.json`] = JSON.stringify(partsMarket, null, 4);
+
+  // ── UI ────────────────────────────────────────
+  const section = document.getElementById('output-section');
+  const resultDiv = document.getElementById('result-files');
+  resultDiv.innerHTML = '';
+  section.style.display = 'block';
+
+  for (const [fname, content] of Object.entries(generatedFiles)) {
+    const size = (new Blob([content]).size / 1024).toFixed(1) + ' KB';
+    const el = document.createElement('div');
+    el.className = 'result-file';
+    el.innerHTML = `<span class="fname">${fname}</span><span class="fsize">${size}</span>`;
+    resultDiv.appendChild(el);
+  }
+
+  setStatus(`Generated ${Object.keys(generatedFiles).length} files for ${modName}`);
+}
+
+// ═══════════════════════════════════════════════
+//  DOWNLOAD
+// ═══════════════════════════════════════════════
+function downloadFile(filename, content) {
+  const blob = new Blob([content], { type: 'text/plain' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = filename;
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+function downloadAll() {
+  for (const [fname, content] of Object.entries(generatedFiles)) {
+    setTimeout(() => downloadFile(fname, content), 100);
+  }
+}
+
+function downloadBatch() {
+  batchFiles.forEach((f, i) => {
+    setTimeout(() => downloadFile(f.name, JSON.stringify(f.updated, null, 4)), i * 150);
+  });
+}
+
+function downloadTrader() {
+  if (!traderData) return;
+  downloadFile(traderFilename || 'Vehicles_updated.json', JSON.stringify(traderData, null, 4));
+}
+
+// ═══════════════════════════════════════════════
+//  BATCH UPDATE
+// ═══════════════════════════════════════════════
+const batchDrop = document.getElementById('batch-drop');
+const batchInput = document.getElementById('batch-input');
+
+batchDrop.addEventListener('dragover', e => { e.preventDefault(); batchDrop.classList.add('dragover'); });
+batchDrop.addEventListener('dragleave', () => batchDrop.classList.remove('dragover'));
+batchDrop.addEventListener('drop', e => {
+  e.preventDefault(); batchDrop.classList.remove('dragover');
+  loadBatchFiles(e.dataTransfer.files);
+});
+batchInput.addEventListener('change', e => loadBatchFiles(e.target.files));
+
+function loadBatchFiles(fileList) {
+  batchFiles = [];
+  const listEl = document.getElementById('batch-file-list');
+  listEl.innerHTML = '';
+  let loaded = 0;
+
+  Array.from(fileList).forEach(file => {
+    const reader = new FileReader();
+    reader.onload = ev => {
+      try {
+        batchFiles.push({ name: file.name, data: JSON.parse(ev.target.result) });
+      } catch(e) {
+        batchFiles.push({ name: file.name, data: null, error: 'Invalid JSON' });
+      }
+      const el = document.createElement('div');
+      el.className = 'result-file';
+      el.innerHTML = `<span class="fname">${file.name}</span><span class="badge badge-info">LOADED</span>`;
+      listEl.appendChild(el);
+      loaded++;
+      if (loaded === fileList.length) setStatus(`Loaded ${loaded} files for batch processing`);
+    };
+    reader.readAsText(file);
+  });
+}
+
+function runBatch() {
+  if (!batchFiles.length) { alert('No files loaded.'); return; }
+  const p = getPrices();
+  const doVehPrice  = document.getElementById('batch-veh-price').checked;
+  const doPartsPrice = document.getElementById('batch-parts-price').checked;
+  const swapBat  = document.getElementById('batch-battery').checked;
+  const swapPlug = document.getElementById('batch-plug').checked;
+
+  const results = document.getElementById('batch-results');
+  results.innerHTML = '';
+
+  batchFiles.forEach(f => {
+    if (!f.data) {
+      const el = document.createElement('div');
+      el.className = 'result-file';
+      el.innerHTML = `<span class="fname">${f.name}</span><span class="badge badge-warn">SKIPPED - invalid JSON</span>`;
+      results.appendChild(el);
+      return;
+    }
+
+    const updated = JSON.parse(JSON.stringify(f.data));
+    let changes = 0;
+
+    if (updated.Items && Array.isArray(updated.Items)) {
+      updated.Items.forEach(item => {
+        const cn = (item.ClassName || '').toLowerCase();
+        const isVehicle = !cn.includes('wheel') && !cn.includes('door') && !cn.includes('hood') &&
+                          !cn.includes('trunk') && !cn.includes('driver') && !cn.includes('cargo') &&
+                          !cn.includes('destroyed') && !cn.includes('part');
+
+        // Price update
+        if (doVehPrice && isVehicle) {
+          item.MaxPriceThreshold = p.veh;
+          item.MinPriceThreshold = p.veh;
+          changes++;
+        } else if (doPartsPrice && !isVehicle) {
+          const [mn, mx] = classifyPartPrice(item.ClassName, p);
+          item.MaxPriceThreshold = mx;
+          item.MinPriceThreshold = mn;
+          changes++;
+        }
+
+        // Swap battery/plug in SpawnAttachments
+        if (item.SpawnAttachments) {
+          item.SpawnAttachments = item.SpawnAttachments.map(a => {
+            if (swapBat) {
+              if (a === 'CarBattery') return 'TruckBattery';
+              if (a === 'TruckBattery') return 'CarBattery';
+            }
+            if (swapPlug) {
+              if (a === 'SparkPlug') return 'GlowPlug';
+              if (a === 'GlowPlug') return 'SparkPlug';
+            }
+            return a;
+          });
+        }
+      });
+    }
+
+    f.updated = updated;
+
+    const el = document.createElement('div');
+    el.className = 'result-file';
+    el.innerHTML = `<span class="fname">${f.name}</span><span class="fsize">${changes} changes</span><span class="badge badge-ok">UPDATED</span>`;
+    results.appendChild(el);
+  });
+
+  document.getElementById('batch-output').style.display = 'block';
+  setStatus(`Batch complete: ${batchFiles.length} files processed`);
+}
+
+// ═══════════════════════════════════════════════
+//  TRADER CONFIG
+// ═══════════════════════════════════════════════
+const traderDrop = document.getElementById('trader-drop');
+const traderInput = document.getElementById('trader-input');
+
+traderDrop.addEventListener('dragover', e => { e.preventDefault(); traderDrop.classList.add('dragover'); });
+traderDrop.addEventListener('dragleave', () => traderDrop.classList.remove('dragover'));
+traderDrop.addEventListener('drop', e => {
+  e.preventDefault(); traderDrop.classList.remove('dragover');
+  const f = e.dataTransfer.files[0]; if (f) loadTrader(f);
+});
+traderInput.addEventListener('change', e => { if (e.target.files[0]) loadTrader(e.target.files[0]); });
+
+function loadTrader(file) {
+  const reader = new FileReader();
+  reader.onload = ev => {
+    try {
+      traderData = JSON.parse(ev.target.result);
+      traderFilename = file.name;
+      document.getElementById('trader-filename').textContent = '✓ Loaded: ' + file.name;
+      setStatus('Trader file loaded: ' + file.name);
+    } catch(e) { alert('Invalid JSON file.'); }
+  };
+  reader.readAsText(file);
+}
+
+function updateTrader() {
+  if (!traderData) { alert('Upload a trader JSON file first.'); return; }
+  const raw = document.getElementById('trader-cats').value.trim();
+  if (!raw) { alert('Enter at least one category.'); return; }
+  const cats = raw.split('\n').map(c => c.trim()).filter(Boolean);
+  if (!traderData.Categories) traderData.Categories = [];
+  traderData.Categories.push(...cats);
+  const preview = document.getElementById('trader-preview');
+  preview.textContent = JSON.stringify(traderData, null, 4);
+  document.getElementById('trader-output').style.display = 'block';
+  setStatus(`Added ${cats.length} categories to ${traderFilename}`);
+}
+
+// ═══════════════════════════════════════════════
+//  PRICES SAVE/RESET
+// ═══════════════════════════════════════════════
+function savePrices() { setStatus('Prices saved to session.'); }
+function resetPrices() {
+  document.getElementById('p-veh').value = 700000;
+  document.getElementById('p-hood-min').value = 2500; document.getElementById('p-hood-max').value = 5000;
+  document.getElementById('p-trunk-min').value = 2500; document.getElementById('p-trunk-max').value = 5000;
+  document.getElementById('p-driver-min').value = 2000; document.getElementById('p-driver-max').value = 4000;
+  document.getElementById('p-codriver-min').value = 2000; document.getElementById('p-codriver-max').value = 4000;
+  document.getElementById('p-cargo-min').value = 2000; document.getElementById('p-cargo-max').value = 4000;
+  document.getElementById('p-wheel-min').value = 1500; document.getElementById('p-wheel-max').value = 3000;
+  document.getElementById('p-wheelD-min').value = 100; document.getElementById('p-wheelD-max').value = 500;
+  setStatus('Prices reset to defaults.');
+}
+
+// ═══════════════════════════════════════════════
+//  STATUS
+// ═══════════════════════════════════════════════
+function setStatus(msg) {
+  document.getElementById('status-msg').textContent = '// ' + msg;
+}
+</script>
+</body>
+</html>
