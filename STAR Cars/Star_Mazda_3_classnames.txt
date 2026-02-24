@@ -1,0 +1,99 @@
+# Star Mazda 3 - All Classnames
+# ======================================
+
+# VEHICLES
+Star_Mazda_3
+Star_Mazda_3_Blue
+Star_Mazda_3_Red
+Star_Mazda_3_yellow
+Star_Mazda_3_white
+Star_Mazda_3_pink
+Star_Mazda_3_brown
+Star_Mazda_3_metal
+
+# HOODS
+Star_Mazda_3_hood
+Star_Mazda_3_hood_Blue
+Star_Mazda_3_hood_Red
+Star_Mazda_3_hood_yellow
+Star_Mazda_3_hood_white
+Star_Mazda_3_hood_pink
+Star_Mazda_3_hood_brown
+Star_Mazda_3_hood_metal
+
+# TRUNKS
+Star_Mazda_3_trunk
+Star_Mazda_3_trunk_Blue
+Star_Mazda_3_trunk_Red
+Star_Mazda_3_trunk_yellow
+Star_Mazda_3_trunk_white
+Star_Mazda_3_trunk_pink
+Star_Mazda_3_trunk_brown
+Star_Mazda_3_trunk_metal
+
+# DRIVER DOORS
+Star_Mazda_3_driver
+Star_Mazda_3_driver_Blue
+Star_Mazda_3_driver_Red
+Star_Mazda_3_driver_yellow
+Star_Mazda_3_driver_white
+Star_Mazda_3_driver_pink
+Star_Mazda_3_driver_brown
+Star_Mazda_3_driver_metal
+
+# CO-DRIVER DOORS
+Star_Mazda_3_codriver
+Star_Mazda_3_codriver_Blue
+Star_Mazda_3_codriver_Red
+Star_Mazda_3_codriver_yellow
+Star_Mazda_3_codriver_white
+Star_Mazda_3_codriver_pink
+Star_Mazda_3_codriver_brown
+Star_Mazda_3_codriver_metal
+
+# REAR DOORS (LEFT)
+Star_Mazda_3_cargo1
+Star_Mazda_3_cargo1_Blue
+Star_Mazda_3_cargo1_Red
+Star_Mazda_3_cargo1_yellow
+Star_Mazda_3_cargo1_white
+Star_Mazda_3_cargo1_pink
+Star_Mazda_3_cargo1_brown
+Star_Mazda_3_cargo1_metal
+
+# REAR DOORS (RIGHT)
+Star_Mazda_3_cargo2
+Star_Mazda_3_cargo2_Blue
+Star_Mazda_3_cargo2_Red
+Star_Mazda_3_cargo2_yellow
+Star_Mazda_3_cargo2_white
+Star_Mazda_3_cargo2_pink
+Star_Mazda_3_cargo2_brown
+Star_Mazda_3_cargo2_metal
+
+# WHEELS
+Star_Mazda_3_Wheel
+Star_Mazda_3_wheel_Blue
+Star_Mazda_3_wheel_Red
+Star_Mazda_3_wheel_yellow
+Star_Mazda_3_wheel_white
+Star_Mazda_3_wheel_pink
+Star_Mazda_3_wheel_brown
+Star_Mazda_3_wheel_metal
+Star_Mazda_3_wheel2
+Star_Mazda_3_wheel2_Blue
+Star_Mazda_3_wheel2_Red
+Star_Mazda_3_wheel2_yellow
+Star_Mazda_3_wheel2_white
+Star_Mazda_3_wheel2_pink
+Star_Mazda_3_wheel2_brown
+Star_Mazda_3_wheel2_metal
+Star_Mazda_3_wheel3
+Star_Mazda_3_wheel3_Blue
+Star_Mazda_3_wheel3_Red
+Star_Mazda_3_wheel3_yellow
+Star_Mazda_3_wheel3_white
+Star_Mazda_3_wheel3_pink
+Star_Mazda_3_wheel3_brown
+Star_Mazda_3_wheel3_metal
+Star_Mazda_3_Wheel_destroyed

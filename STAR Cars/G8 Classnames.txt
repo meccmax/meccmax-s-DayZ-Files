@@ -1,0 +1,83 @@
+# Star Pontiac G8 GXP - All Classnames
+# ======================================
+
+# VEHICLES
+Star_Pontiac_G8_GXP
+Star_Pontiac_G8_GXP_Blue
+Star_Pontiac_G8_GXP_Red
+Star_Pontiac_G8_GXP_yellow
+Star_Pontiac_G8_GXP_white
+Star_Pontiac_G8_GXP_pink
+Star_Pontiac_G8_GXP_orange
+Star_Pontiac_G8_GXP_green
+
+# HOODS
+Star_Pontiac_G8_GXP_hood
+Star_Pontiac_G8_GXP_hood_Blue
+Star_Pontiac_G8_GXP_hood_Red
+Star_Pontiac_G8_GXP_hood_yellow
+Star_Pontiac_G8_GXP_hood_white
+Star_Pontiac_G8_GXP_hood_pink
+Star_Pontiac_G8_GXP_hood_orange
+Star_Pontiac_G8_GXP_hood_green
+
+# TRUNKS
+Star_Pontiac_G8_GXP_trunk
+Star_Pontiac_G8_GXP_trunk_Blue
+Star_Pontiac_G8_GXP_trunk_Red
+Star_Pontiac_G8_GXP_trunk_yellow
+Star_Pontiac_G8_GXP_trunk_white
+Star_Pontiac_G8_GXP_trunk_pink
+Star_Pontiac_G8_GXP_trunk_orange
+Star_Pontiac_G8_GXP_trunk_green
+
+# DRIVER DOORS
+Star_Pontiac_G8_GXP_driver
+Star_Pontiac_G8_GXP_driver_Blue
+Star_Pontiac_G8_GXP_driver_Red
+Star_Pontiac_G8_GXP_driver_yellow
+Star_Pontiac_G8_GXP_driver_white
+Star_Pontiac_G8_GXP_driver_pink
+Star_Pontiac_G8_GXP_driver_orange
+Star_Pontiac_G8_GXP_driver_green
+
+# CO-DRIVER DOORS
+Star_Pontiac_G8_GXP_codriver
+Star_Pontiac_G8_GXP_codriver_Blue
+Star_Pontiac_G8_GXP_codriver_Red
+Star_Pontiac_G8_GXP_codriver_yellow
+Star_Pontiac_G8_GXP_codriver_white
+Star_Pontiac_G8_GXP_codriver_pink
+Star_Pontiac_G8_GXP_codriver_orange
+Star_Pontiac_G8_GXP_codriver_green
+
+# REAR DOORS (LEFT)
+Star_Pontiac_G8_GXP_cargo1
+Star_Pontiac_G8_GXP_cargo1_Blue
+Star_Pontiac_G8_GXP_cargo1_Red
+Star_Pontiac_G8_GXP_cargo1_yellow
+Star_Pontiac_G8_GXP_cargo1_white
+Star_Pontiac_G8_GXP_cargo1_pink
+Star_Pontiac_G8_GXP_cargo1_orange
+Star_Pontiac_G8_GXP_cargo1_green
+
+# REAR DOORS (RIGHT)
+Star_Pontiac_G8_GXP_cargo2
+Star_Pontiac_G8_GXP_cargo2_Blue
+Star_Pontiac_G8_GXP_cargo2_Red
+Star_Pontiac_G8_GXP_cargo2_yellow
+Star_Pontiac_G8_GXP_cargo2_white
+Star_Pontiac_G8_GXP_cargo2_pink
+Star_Pontiac_G8_GXP_cargo2_orange
+Star_Pontiac_G8_GXP_cargo2_green
+
+# WHEELS
+Star_Pontiac_G8_GXP_Wheel
+Star_Pontiac_G8_GXP_wheel_Blue
+Star_Pontiac_G8_GXP_wheel_Red
+Star_Pontiac_G8_GXP_wheel_yellow
+Star_Pontiac_G8_GXP_wheel_white
+Star_Pontiac_G8_GXP_wheel_pink
+Star_Pontiac_G8_GXP_wheel_orange
+Star_Pontiac_G8_GXP_wheel_green
+Star_Pontiac_G8_GXP_Wheel_destroyed

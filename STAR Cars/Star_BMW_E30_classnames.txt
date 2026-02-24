@@ -1,0 +1,103 @@
+# Star BMW E30 - All Classnames
+# ======================================
+
+# VEHICLES
+Star_BMW_E30
+Star_BMW_E30_Blue
+Star_BMW_E30_Red
+Star_BMW_E30_yellow
+Star_BMW_E30_white
+Star_BMW_E30_orange
+Star_BMW_E30_green
+Star_BMW_E30_camo1
+Star_BMW_E30_camo2
+Star_BMW_E30_camo3
+
+# HOODS
+Star_BMW_E30_hood
+Star_BMW_E30_hood_Blue
+Star_BMW_E30_hood_Red
+Star_BMW_E30_hood_yellow
+Star_BMW_E30_hood_white
+Star_BMW_E30_hood_orange
+Star_BMW_E30_hood_green
+Star_BMW_E30_hood_camo1
+Star_BMW_E30_hood_camo2
+Star_BMW_E30_hood_camo3
+
+# TRUNKS
+Star_BMW_E30_trunk
+Star_BMW_E30_trunk_Blue
+Star_BMW_E30_trunk_Red
+Star_BMW_E30_trunk_yellow
+Star_BMW_E30_trunk_white
+Star_BMW_E30_trunk_orange
+Star_BMW_E30_trunk_green
+Star_BMW_E30_trunk_camo1
+Star_BMW_E30_trunk_camo2
+Star_BMW_E30_trunk_camo3
+
+# DRIVER DOORS
+Star_BMW_E30_driver
+Star_BMW_E30_driver_Blue
+Star_BMW_E30_driver_Red
+Star_BMW_E30_driver_yellow
+Star_BMW_E30_driver_white
+Star_BMW_E30_driver_orange
+Star_BMW_E30_driver_green
+Star_BMW_E30_driver_camo1
+Star_BMW_E30_driver_camo2
+Star_BMW_E30_driver_camo3
+
+# CO-DRIVER DOORS
+Star_BMW_E30_codriver
+Star_BMW_E30_codriver_Blue
+Star_BMW_E30_codriver_Red
+Star_BMW_E30_codriver_yellow
+Star_BMW_E30_codriver_white
+Star_BMW_E30_codriver_orange
+Star_BMW_E30_codriver_green
+Star_BMW_E30_codriver_camo1
+Star_BMW_E30_codriver_camo2
+Star_BMW_E30_codriver_camo3
+
+# REAR DOORS (LEFT)
+Star_BMW_E30_cargo1
+Star_BMW_E30_cargo1_Blue
+Star_BMW_E30_cargo1_Red
+Star_BMW_E30_cargo1_yellow
+Star_BMW_E30_cargo1_white
+Star_BMW_E30_cargo1_orange
+Star_BMW_E30_cargo1_green
+Star_BMW_E30_cargo1_camo1
+Star_BMW_E30_cargo1_camo2
+Star_BMW_E30_cargo1_camo3
+
+# REAR DOORS (RIGHT)
+Star_BMW_E30_cargo2
+Star_BMW_E30_cargo2_Blue
+Star_BMW_E30_cargo2_Red
+Star_BMW_E30_cargo2_yellow
+Star_BMW_E30_cargo2_white
+Star_BMW_E30_cargo2_orange
+Star_BMW_E30_cargo2_green
+Star_BMW_E30_cargo2_camo1
+Star_BMW_E30_cargo2_camo2
+Star_BMW_E30_cargo2_camo3
+
+# WHEELS
+Star_BMW_E30_Wheel
+Star_BMW_E30_wheel_Blue
+Star_BMW_E30_wheel_Red
+Star_BMW_E30_wheel_yellow
+Star_BMW_E30_wheel_white
+Star_BMW_E30_wheel_orange
+Star_BMW_E30_wheel_green
+Star_BMW_E30_wheel2
+Star_BMW_E30_wheel2_Blue
+Star_BMW_E30_wheel2_Red
+Star_BMW_E30_wheel2_yellow
+Star_BMW_E30_wheel2_white
+Star_BMW_E30_wheel2_orange
+Star_BMW_E30_wheel2_green
+Star_BMW_E30_Wheel_destroyed
