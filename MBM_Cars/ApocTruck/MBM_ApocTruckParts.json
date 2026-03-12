@@ -7,7 +7,7 @@
     "InitStockPercent": 75.0,
     "Items": [
     {
-      "ClassName": "MBM_Apocalypse_Wheel_Rear",
+      "ClassName": "MBM_Apocalypse_Truck_Wheel_Rear",
       "MaxPriceThreshold": 15000,
       "MinPriceThreshold": 10000,
       "SellPricePercent": 50,
@@ -18,7 +18,7 @@
       "Variants": []
     },
     {
-      "ClassName": "MBM_Apocalypse_Wheel_Front",
+      "ClassName": "MBM_Apocalypse_Truck_Wheel_Front",
       "MaxPriceThreshold": 15000,
       "MinPriceThreshold": 10000,
       "SellPricePercent": 50,
